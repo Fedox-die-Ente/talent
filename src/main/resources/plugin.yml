@@ -1,5 +1,5 @@
 name: talent
-version: '1.0-SNAPSHOT'
+version: '1.0.0-SNAPSHOT'
 main: me.fedox.talent.Talent
 api-version: '1.21'
 
