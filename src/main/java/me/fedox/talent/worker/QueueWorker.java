@@ -30,25 +30,50 @@ public class QueueWorker {
     @Setter
     private Player currentSelectedPlayer;
 
+    /**
+     * Constructor for QueueWorker.
+     *
+     * @param plugin The Talent plugin instance.
+     */
     public QueueWorker(Talent plugin) {
         this.plugin = plugin;
     }
 
+    /**
+     * Adds a player to the queue.
+     *
+     * @param player The player to add.
+     */
     public void addPlayerToQueue(Player player) {
         waitingPlayers.add(player);
         Talent.getInstance().getLogger().info("Added " + player.getName() + " to the queue.");
     }
 
+    /**
+     * Adds a player to the list of already played players.
+     *
+     * @param player The player to add.
+     */
     public void addAlreadyPlayedPlayer(Player player) {
         alreadyPlayedPlayers.add(player);
         Talent.getInstance().getLogger().info("Added " + player.getName() + " to the already played players.");
     }
 
+    /**
+     * Removes a player from the queue.
+     *
+     * @param player The player to remove.
+     */
     public void removePlayerFromQueue(Player player) {
         waitingPlayers.remove(player);
         Talent.getInstance().getLogger().info("Removed " + player.getName() + " from the queue.");
     }
 
+    /**
+     * Adds a player to the list of winners.
+     *
+     * @param player The player to add.
+     */
     public void addWinner(Player player) {
         winners.add(player);
 
@@ -57,10 +82,21 @@ public class QueueWorker {
         Talent.getInstance().getLogger().info("Added " + player.getName() + " to the winners.");
     }
 
+    /**
+     * Checks if a player is in the queue.
+     *
+     * @param player The player to check.
+     * @return True if the player is in the queue, false otherwise.
+     */
     public boolean isPlayerInQueue(Player player) {
         return waitingPlayers.contains(player);
     }
 
+    /**
+     * Selects the next player from the queue.
+     *
+     * @return The next player.
+     */
     public Player nextPlayer() {
         List<Player> shuffledList = new ArrayList<>(waitingPlayers);
         Collections.shuffle(shuffledList);
@@ -72,14 +108,28 @@ public class QueueWorker {
         return player;
     }
 
+    /**
+     * Checks if there is a next player in the queue.
+     *
+     * @return True if there is a next player, false otherwise.
+     */
     public boolean hasNextPlayer() {
         return !waitingPlayers.isEmpty();
     }
 
+    /**
+     * Checks if a player has already played in this session.
+     *
+     * @param player The player to check.
+     * @return True if the player has already played, false otherwise.
+     */
     public boolean hasAlreadyPlayedThisSession(Player player) {
         return alreadyPlayedPlayers.contains(player);
     }
 
+    /**
+     * Cleans up the queue by clearing all lists.
+     */
     public void cleanUp() {
         waitingPlayers.clear();
         alreadyPlayedPlayers.clear();

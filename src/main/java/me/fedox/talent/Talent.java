@@ -26,21 +26,29 @@ import java.util.List;
 import static me.fedox.talent.utils.Constants.CAMERA_LOCATIONS;
 import static me.fedox.talent.utils.Constants.NEXT_PLAYERS;
 
+/**
+ * Main class for the Talent plugin.
+ * Extends JavaPlugin to integrate with the Bukkit plugin system.
+ */
 public final class Talent extends JavaPlugin {
 
     @Getter
     @Setter
-    public static String creatorUUID;
+    public static String creatorUUID; // UUID of the creator
     @Getter
-    private static Talent instance;
+    private static Talent instance; // Singleton instance of the plugin
     @Getter
-    private QueueWorker queueWorker;
+    private QueueWorker queueWorker; // Worker for handling queue operations
     @Getter
-    private ShowManager showManager;
+    private ShowManager showManager; // Manager for handling show operations
 
     @Getter
-    private List<Player> buildModePlayers = new ArrayList<>();
+    private List<Player> buildModePlayers = new ArrayList<>(); // List of players in build mode
 
+    /**
+     * Called when the plugin is enabled.
+     * Initializes the plugin, checks for dependencies, and registers commands and events.
+     */
     @Override
     public void onEnable() {
         instance = this;
@@ -62,11 +70,18 @@ public final class Talent extends JavaPlugin {
         register();
     }
 
+    /**
+     * Called when the plugin is disabled.
+     * Used for cleanup operations.
+     */
     @Override
     public void onDisable() {
         System.out.println("Talent plugin disabled");
     }
 
+    /**
+     * Registers commands and event listeners for the plugin.
+     */
     public void register() {
         this.getCommand("setlocations").setExecutor(new SetLocationsCommand());
         this.getCommand("setcurrentplayer").setExecutor(new SetCurrentPlayerCommand());
@@ -119,6 +134,11 @@ public final class Talent extends JavaPlugin {
         }
     }
 
+    /**
+     * Adds a player to the list of winners.
+     *
+     * @param player The player to add.
+     */
     public void addWinPlayer(Player player) {
         List<String> nextPlayers = getConfig().getStringList(NEXT_PLAYERS);
         nextPlayers.add(player.getName());
@@ -127,10 +147,20 @@ public final class Talent extends JavaPlugin {
         saveConfig();
     }
 
+    /**
+     * Retrieves the list of winners.
+     *
+     * @return List of winner names.
+     */
     public List<String> getWinners() {
         return getConfig().getStringList(NEXT_PLAYERS);
     }
 
+    /**
+     * Adds a camera location to the configuration.
+     *
+     * @param location The location to add.
+     */
     public void addCameraLocation(Location location) {
         List<String> cameraLocations = getConfig().getStringList(CAMERA_LOCATIONS);
         cameraLocations.add(location.getWorld().getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch());
@@ -139,6 +169,11 @@ public final class Talent extends JavaPlugin {
         saveConfig();
     }
 
+    /**
+     * Retrieves the list of camera locations.
+     *
+     * @return List of camera locations.
+     */
     public List<Location> getCameraLocations() {
         List<Location> cameraLocations = new ArrayList<>();
         List<String> cameraLocationsString = getConfig().getStringList(CAMERA_LOCATIONS);
@@ -151,6 +186,4 @@ public final class Talent extends JavaPlugin {
 
         return cameraLocations;
     }
-
-
 }

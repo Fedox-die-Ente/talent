@@ -18,9 +18,20 @@ import org.bukkit.entity.Player;
  * https://www.youtube.com/watch?v=tjBCjfB3Hq8
  */
 
+/**
+ * Command executor for handling the "next" command in the Talent plugin.
+ */
 public class NextCommand implements CommandExecutor {
 
-
+    /**
+     * Executes the given command, returning its success.
+     *
+     * @param commandSender Source of the command.
+     * @param command       Command which was executed.
+     * @param s             Alias of the command which was used.
+     * @param strings       Passed command arguments.
+     * @return true if the command was successful, false otherwise.
+     */
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player player = (Player) commandSender;

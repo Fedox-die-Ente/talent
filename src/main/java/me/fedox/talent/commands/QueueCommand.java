@@ -15,8 +15,20 @@ import org.bukkit.entity.Player;
  * https://www.youtube.com/watch?v=tjBCjfB3Hq8
  */
 
+/**
+ * Command executor for handling queue-related commands in the Talent plugin.
+ */
 public class QueueCommand implements CommandExecutor {
 
+    /**
+     * Executes the given command, returning its success.
+     *
+     * @param commandSender Source of the command.
+     * @param command       Command which was executed.
+     * @param s             Alias of the command which was used.
+     * @param strings       Passed command arguments.
+     * @return true if the command was successful, false otherwise.
+     */
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 
@@ -30,7 +42,6 @@ public class QueueCommand implements CommandExecutor {
             player.sendMessage("§8» §7Dannach kannst du den Befehl §a§l/queue confirm§7 nutzen.");
             return false;
         }
-
 
         if (strings[0].equalsIgnoreCase("confirm")) {
 

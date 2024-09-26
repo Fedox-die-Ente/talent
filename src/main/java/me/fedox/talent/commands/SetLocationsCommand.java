@@ -17,7 +17,19 @@ import static me.fedox.talent.utils.Constants.*;
  * https://www.youtube.com/watch?v=tjBCjfB3Hq8
  */
 
+/**
+ * Command executor for setting various locations in the Talent plugin.
+ */
 public class SetLocationsCommand implements CommandExecutor {
+    /**
+     * Executes the given command, returning its success.
+     *
+     * @param commandSender Source of the command.
+     * @param command       Command which was executed.
+     * @param s             Alias of the command which was used.
+     * @param strings       Passed command arguments.
+     * @return true if a valid location type was provided and set, false otherwise.
+     */
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 
@@ -34,7 +46,7 @@ public class SetLocationsCommand implements CommandExecutor {
 
             switch (strings[0]) {
                 case "sound":
-
+                    // Set sound/particle location
                     Talent.getInstance().getConfig().set(LOCATIONS_SOUND_WORLD, location.getWorld().getName());
                     Talent.getInstance().getConfig().set(LOCATIONS_SOUND_X, location.getX());
                     Talent.getInstance().getConfig().set(LOCATIONS_SOUND_Y, location.getY());
@@ -46,7 +58,7 @@ public class SetLocationsCommand implements CommandExecutor {
 
                     break;
                 case "stage":
-
+                    // Set stage location
                     Talent.getInstance().getConfig().set(LOCATIONS_STAGE_WORLD, location.getWorld().getName());
                     Talent.getInstance().getConfig().set(LOCATIONS_STAGE_X, location.getX());
                     Talent.getInstance().getConfig().set(LOCATIONS_STAGE_Y, location.getY());
@@ -60,7 +72,7 @@ public class SetLocationsCommand implements CommandExecutor {
 
                     break;
                 case "end":
-
+                    // Set end location
                     Talent.getInstance().getConfig().set(LOCATIONS_END_WORLD, location.getWorld().getName());
                     Talent.getInstance().getConfig().set(LOCATIONS_END_X, location.getX());
                     Talent.getInstance().getConfig().set(LOCATIONS_END_Y, location.getY());
@@ -74,7 +86,7 @@ public class SetLocationsCommand implements CommandExecutor {
 
                     break;
                 case "spawn":
-
+                    // Set spawn location
                     Talent.getInstance().getConfig().set(LOCATIONS_SPAWN_WORLD, location.getWorld().getName());
                     Talent.getInstance().getConfig().set(LOCATIONS_SPAWN_X, location.getX());
                     Talent.getInstance().getConfig().set(LOCATIONS_SPAWN_Y, location.getY());
@@ -88,7 +100,7 @@ public class SetLocationsCommand implements CommandExecutor {
 
                     break;
                 case "onstage":
-
+                    // Set onstage location
                     Talent.getInstance().getConfig().set(LOCATIONS_ON_STAGE_WORLD, location.getWorld().getName());
                     Talent.getInstance().getConfig().set(LOCATIONS_ON_STAGE_X, location.getX());
                     Talent.getInstance().getConfig().set(LOCATIONS_ON_STAGE_Y, location.getY());

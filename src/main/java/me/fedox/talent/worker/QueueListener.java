@@ -12,8 +12,17 @@ import org.bukkit.event.player.PlayerQuitEvent;
  * https://www.youtube.com/watch?v=tjBCjfB3Hq8
  */
 
+/**
+ * Listener class for handling player quit events.
+ */
 public class QueueListener implements Listener {
 
+    /**
+     * Event handler for PlayerQuitEvent.
+     * Removes the player from the queue if they are in it.
+     *
+     * @param event The PlayerQuitEvent triggered when a player quits.
+     */
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         QueueWorker queueWorker = Talent.getInstance().getQueueWorker();
