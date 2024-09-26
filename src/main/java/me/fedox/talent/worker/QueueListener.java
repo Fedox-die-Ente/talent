@@ -31,5 +31,9 @@ public class QueueListener implements Listener {
             queueWorker.removePlayerFromQueue(event.getPlayer());
         }
 
+        if (queueWorker.getCurrentSelectedPlayer() == event.getPlayer()) {
+            queueWorker.setCurrentSelectedPlayer(null);
+        }
+
     }
 }
