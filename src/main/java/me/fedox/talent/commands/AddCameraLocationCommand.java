@@ -34,7 +34,7 @@ public class AddCameraLocationCommand implements CommandExecutor {
 
         if (player.hasPermission("talent.admin")) {
             Talent.getInstance().addCameraLocation(player.getLocation());
-            player.sendMessage(Constants.PLUGIN_PREFIX + "Camera Location gesetzt!");
+            player.sendMessage(Constants.PLUGIN_PREFIX + "Es wurde eine Kamera Position gesetzt!");
             return true;
         }
 
