@@ -1,0 +1,14 @@
+name: talent
+version: '1.0-SNAPSHOT'
+main: me.fedox.talent.Talent
+api-version: '1.21'
+
+depend: [ NoteBlockAPI ]
+
+commands:
+  setlocations:
+  setcurrentplayer:
+  build:
+  next:
+  queue:
+  addcamera:
