@@ -27,18 +27,10 @@ public class ShowManager {
      *
      * @param plugin The Talent plugin instance.
      */
-    public ShowManager(Talent plugin) {
+    public ShowManager(Talent plugin, Location location) {
         this.plugin = plugin;
         this.random = new Random();
-
-        var config = plugin.getConfig();
-        this.centerLocation = new Location(
-                Bukkit.getWorld(config.getString(Constants.LOCATIONS_SOUND_WORLD)),
-                config.getDouble(Constants.LOCATIONS_SOUND_X),
-                config.getDouble(Constants.LOCATIONS_SOUND_Y),
-                config.getDouble(Constants.LOCATIONS_SOUND_Z)
-        );
-
+        this.centerLocation = location;
         this.tourLocations = Talent.getInstance().getCameraLocations();
     }
 

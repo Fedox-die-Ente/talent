@@ -216,8 +216,8 @@ public class GoldenBuzzer implements Listener {
         Bukkit.broadcastMessage(Constants.PLUGIN_PREFIX + "Buzzer Song vorbei!");
 
         toggleRedstoneLamps(false);
-
         Bukkit.getScheduler().cancelTasks(plugin);
+
         isGoldenBuzzerActive = false;
         effectsTask = null;
     }

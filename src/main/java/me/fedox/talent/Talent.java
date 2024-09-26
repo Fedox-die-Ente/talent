@@ -5,6 +5,7 @@ import lombok.Setter;
 import me.fedox.talent.commands.*;
 import me.fedox.talent.listener.AntiListener;
 import me.fedox.talent.listener.VoteListener;
+import me.fedox.talent.utils.Constants;
 import me.fedox.talent.utils.GoldenBuzzer;
 import me.fedox.talent.utils.ShowManager;
 import me.fedox.talent.worker.QueueListener;
@@ -53,20 +54,27 @@ public final class Talent extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        loadConfig();
+        copySongs();
+
+        Location soundLoc = new Location(
+                Bukkit.getWorld(getConfig().getString(Constants.LOCATIONS_SOUND_WORLD)),
+                getConfig().getDouble(Constants.LOCATIONS_SOUND_X),
+                getConfig().getDouble(Constants.LOCATIONS_SOUND_Y),
+                getConfig().getDouble(Constants.LOCATIONS_SOUND_Z)
+        );
+
         if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI")) {
             getLogger().severe("*** NoteBlockAPI is not installed or not enabled. ***");
             return;
         }
 
         queueWorker = new QueueWorker(this);
-        showManager = new ShowManager(this);
+        showManager = new ShowManager(this, soundLoc);
 
         System.out.println("Cam Locs:");
         System.out.println(getCameraLocations());
-
-        loadConfig();
-        copySongs();
-
+        
         register();
     }
 
