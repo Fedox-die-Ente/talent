@@ -17,7 +17,6 @@ import java.util.Random;
 public class ShowManager {
 
     private final Talent plugin;
-    private final Location centerLocation;
     private final Random random;
     private final List<Location> tourLocations;
 
@@ -30,7 +29,6 @@ public class ShowManager {
     public ShowManager(Talent plugin, Location location) {
         this.plugin = plugin;
         this.random = new Random();
-        this.centerLocation = location;
         this.tourLocations = Talent.getInstance().getCameraLocations();
     }
 
@@ -111,6 +109,14 @@ public class ShowManager {
      * Launches a single firework at a random location near the center.
      */
     private void launchFirework() {
+
+        Location centerLocation = new Location(
+                Bukkit.getWorld(plugin.getConfig().getString(Constants.LOCATIONS_ON_STAGE_WORLD)),
+                plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_X),
+                plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_Y),
+                plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_Z)
+        );
+
         Location loc = centerLocation.clone().add(random.nextInt(21) - 10, 0, random.nextInt(21) - 10);
         Firework fw = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK_ROCKET);
         FireworkMeta fwm = fw.getFireworkMeta();
@@ -151,6 +157,14 @@ public class ShowManager {
      * Spawns particles at random locations near the center.
      */
     private void spawnParticles() {
+
+        Location centerLocation = new Location(
+                Bukkit.getWorld(plugin.getConfig().getString(Constants.LOCATIONS_ON_STAGE_WORLD)),
+                plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_X),
+                plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_Y),
+                plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_Z)
+        );
+
         Particle[] particles = {Particle.TOTEM_OF_UNDYING, Particle.WITCH, Particle.HAPPY_VILLAGER, Particle.NOTE, Particle.HEART};
         for (Particle particle : particles) {
             centerLocation.getWorld().spawnParticle(particle,
@@ -217,6 +231,14 @@ public class ShowManager {
      * Creates a lightning effect at a random location near the center.
      */
     private void lightningEffect() {
+
+        Location centerLocation = new Location(
+                Bukkit.getWorld(plugin.getConfig().getString(Constants.LOCATIONS_ON_STAGE_WORLD)),
+                plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_X),
+                plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_Y),
+                plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_Z)
+        );
+
         Location loc = centerLocation.clone().add(random.nextInt(41) - 20, 0, random.nextInt(41) - 20);
         loc.getWorld().strikeLightningEffect(loc);
     }
