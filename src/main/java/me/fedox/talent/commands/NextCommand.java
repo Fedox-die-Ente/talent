@@ -64,7 +64,7 @@ public class NextCommand implements CommandExecutor {
         }
 
         Player nextPlayer = queueWorker.nextPlayer();
-        Bukkit.broadcastMessage(Constants.PLUGIN_PREFIX + "Der nächste Spieler ist " + player.getName() + ".");
+        Bukkit.broadcastMessage(Constants.PLUGIN_PREFIX + "Der nächste Spieler ist " + nextPlayer.getName() + ".");
         nextPlayer.teleport(stageLoc);
         nextPlayer.playSound(nextPlayer.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         queueWorker.addAlreadyPlayedPlayer(nextPlayer);
