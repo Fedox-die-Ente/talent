@@ -18,7 +18,7 @@ public class ShowManager {
 
     private final Talent plugin;
     private final Random random;
-    private final List<Location> tourLocations;
+    private List<Location> tourLocations;
 
     /**
      * Constructor for ShowManager.
@@ -26,16 +26,17 @@ public class ShowManager {
      *
      * @param plugin The Talent plugin instance.
      */
-    public ShowManager(Talent plugin, Location location) {
+    public ShowManager(Talent plugin) {
         this.plugin = plugin;
         this.random = new Random();
-        this.tourLocations = Talent.getInstance().getCameraLocations();
     }
 
     /**
      * Starts the end sequence of the show, including sounds, titles, and teleporting winners.
      */
     public void startEndSequence() {
+        tourLocations = Talent.getInstance().getCameraLocations();
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1, 1);
             player.sendTitle("§8§k!!! §aVORBEI §8§k!!!", "", 10, 70, 20);
@@ -299,33 +300,8 @@ public class ShowManager {
         world.spawnParticle(Particle.END_ROD, location, 50, 5, 5, 5, 0.1);
         world.spawnParticle(Particle.TOTEM_OF_UNDYING, location, 30, 3, 3, 3, 0.05);
 
-        if (random.nextInt(20) == 0) {
-            launchFirework(location);
-        }
     }
-
-    /**
-     * Launches a firework at the specified location.
-     *
-     * @param location The location to launch the firework at.
-     */
-    private void launchFirework(Location location) {
-        Firework fw = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK_ROCKET);
-        FireworkMeta fwm = fw.getFireworkMeta();
-
-        FireworkEffect effect = FireworkEffect.builder()
-                .withColor(Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256)))
-                .withFade(Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256)))
-                .with(FireworkEffect.Type.values()[random.nextInt(FireworkEffect.Type.values().length)])
-                .trail(true)
-                .flicker(true)
-                .build();
-
-        fwm.addEffect(effect);
-        fwm.setPower(1);
-        fw.setFireworkMeta(fwm);
-    }
-
+    
     /**
      * Ends the tour and teleports all players back to the stage.
      */

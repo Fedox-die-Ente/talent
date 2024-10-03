@@ -50,14 +50,14 @@ public class QueueCommand implements CommandExecutor {
                 return false;
             }
 
-            player.sendMessage("§7Du wurdest in die Warteschlange eingereiht.");
-            player.sendMessage("§7Bitte warte geduldig bis du dran bist, beachte den Server nicht zu verlassen!");
-            player.sendMessage("§7Falls du doch gehen musst, und wieder kommen möchtest, nutze §a/queue confirm§7 erneut.");
-
             if (queueWorker.isPlayerInQueue(player)) {
                 player.sendMessage(Constants.PLUGIN_PREFIX + "§cDu bist bereits in der Warteschlange.");
                 return false;
             }
+
+            player.sendMessage("§7Du wurdest in die Warteschlange eingereiht.");
+            player.sendMessage("§7Bitte warte geduldig bis du dran bist, beachte den Server nicht zu verlassen!");
+            player.sendMessage("§7Falls du doch gehen musst, und wieder kommen möchtest, nutze §a/queue confirm§7 erneut.");
 
             queueWorker.addPlayerToQueue(player);
             return true;

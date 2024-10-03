@@ -1,11 +1,10 @@
 package me.fedox.talent;
 
 import lombok.Getter;
-import lombok.Setter;
 import me.fedox.talent.commands.*;
 import me.fedox.talent.listener.AntiListener;
+import me.fedox.talent.listener.OtherListener;
 import me.fedox.talent.listener.VoteListener;
-import me.fedox.talent.utils.Constants;
 import me.fedox.talent.utils.GoldenBuzzer;
 import me.fedox.talent.utils.ShowManager;
 import me.fedox.talent.worker.QueueListener;
@@ -34,9 +33,6 @@ import static me.fedox.talent.utils.Constants.NEXT_PLAYERS;
 public final class Talent extends JavaPlugin {
 
     @Getter
-    @Setter
-    public static String creatorUUID; // UUID of the creator
-    @Getter
     private static Talent instance; // Singleton instance of the plugin
     @Getter
     private QueueWorker queueWorker; // Worker for handling queue operations
@@ -57,24 +53,17 @@ public final class Talent extends JavaPlugin {
         loadConfig();
         copySongs();
 
-        Location soundLoc = new Location(
-                Bukkit.getWorld(getConfig().getString(Constants.LOCATIONS_SOUND_WORLD)),
-                getConfig().getDouble(Constants.LOCATIONS_SOUND_X),
-                getConfig().getDouble(Constants.LOCATIONS_SOUND_Y),
-                getConfig().getDouble(Constants.LOCATIONS_SOUND_Z)
-        );
-
         if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI")) {
             getLogger().severe("*** NoteBlockAPI is not installed or not enabled. ***");
             return;
         }
 
         queueWorker = new QueueWorker(this);
-        showManager = new ShowManager(this, soundLoc);
+        showManager = new ShowManager(this);
 
         System.out.println("Cam Locs:");
         System.out.println(getCameraLocations());
-        
+
         register();
     }
 
@@ -103,6 +92,7 @@ public final class Talent extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new VoteListener(this), this);
         Bukkit.getPluginManager().registerEvents(new AntiListener(), this);
         Bukkit.getPluginManager().registerEvents(new QueueListener(), this);
+        Bukkit.getPluginManager().registerEvents(new OtherListener(), this);
     }
 
     /**
