@@ -61,9 +61,6 @@ public final class Talent extends JavaPlugin {
         queueWorker = new QueueWorker(this);
         showManager = new ShowManager(this);
 
-        System.out.println("Cam Locs:");
-        System.out.println(getCameraLocations());
-
         register();
     }
 
