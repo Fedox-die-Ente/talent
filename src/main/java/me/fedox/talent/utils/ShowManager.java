@@ -232,7 +232,6 @@ public class ShowManager {
      * Creates a lightning effect at a random location near the center.
      */
     private void lightningEffect() {
-
         Location centerLocation = new Location(
                 Bukkit.getWorld(plugin.getConfig().getString(Constants.LOCATIONS_ON_STAGE_WORLD)),
                 plugin.getConfig().getDouble(Constants.LOCATIONS_ON_STAGE_X),
@@ -299,9 +298,8 @@ public class ShowManager {
         World world = location.getWorld();
         world.spawnParticle(Particle.END_ROD, location, 50, 5, 5, 5, 0.1);
         world.spawnParticle(Particle.TOTEM_OF_UNDYING, location, 30, 3, 3, 3, 0.05);
-
     }
-    
+
     /**
      * Ends the tour and teleports all players back to the stage.
      */
@@ -319,13 +317,5 @@ public class ShowManager {
         }
 
         Bukkit.broadcastMessage(Constants.PLUGIN_PREFIX + "Vielen Dank fürs mitmachen!");
-        Bukkit.broadcastMessage(Constants.PLUGIN_PREFIX + "Der Server wird in 120 Sekunden gestoppt.");
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Bukkit.shutdown();
-            }
-        }.runTaskLater(plugin, 2400L);
     }
 }
