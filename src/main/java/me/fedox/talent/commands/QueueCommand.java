@@ -8,6 +8,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * © 2024 Florian O. (https://github.com/Fedox-die-Ente)
  * Created on: 9/26/2024 8:52 PM
@@ -76,9 +79,15 @@ public class QueueCommand implements CommandExecutor {
             return true;
         }
 
-        if (strings[0].equalsIgnoreCase("add")) {
-            queueWorker.addPlayerToQueue(player);
+        if (strings[0].equalsIgnoreCase("list")) {
+            player.sendMessage(Constants.PLUGIN_PREFIX + "§7In der Warteschlange: " + queueWorker.getWaitingPlayers().size());
 
+            List<String> waitingPlayers = new ArrayList<>();
+            queueWorker.getWaitingPlayers().forEach(p -> {
+                waitingPlayers.add(p.getName());
+            });
+
+            player.sendMessage(Constants.PLUGIN_PREFIX + "§7Warteschlange: " + waitingPlayers);
             return true;
         }
 
