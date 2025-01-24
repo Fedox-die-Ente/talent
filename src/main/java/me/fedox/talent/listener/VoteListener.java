@@ -115,6 +115,9 @@ public class VoteListener implements Listener {
             return;
         }
 
+        QueueWorker queueWorker = Talent.getInstance().getQueueWorker();
+        queueWorker.setCurrentSelectedPlayer(null);
+
         var config = plugin.getConfig();
         Location endLoc = new Location(currentPlayer.getWorld(),
                 config.getDouble(Constants.LOCATIONS_END_X),
@@ -129,9 +132,6 @@ public class VoteListener implements Listener {
 
         Bukkit.broadcastMessage(Constants.PLUGIN_PREFIX + currentPlayer.getName() + " §7ist nicht weitergekommen!");
         currentPlayer.sendMessage(Constants.PLUGIN_PREFIX + "§7Du wurdest rausgeworfen, viel Erfolg beim nächsten Mal!");
-
-        QueueWorker queueWorker = Talent.getInstance().getQueueWorker();
-        queueWorker.setCurrentSelectedPlayer(null);
 
         new BukkitRunnable() {
             @Override
@@ -162,6 +162,11 @@ public class VoteListener implements Listener {
         currentPlayer.sendMessage(Constants.PLUGIN_PREFIX + "§7Du hast den Vote von §a" + jury.getName() + " §7erhalten!");
 
         Location effectsLoc = currentPlayer.getLocation().add(0, 2, 0);
+
+        QueueWorker queueWorker = Talent.getInstance().getQueueWorker();
+
+        queueWorker.addWinner(currentPlayer);
+        queueWorker.setCurrentSelectedPlayer(null);
 
         startCoolEffects(currentPlayer, effectsLoc);
     }
@@ -194,12 +199,7 @@ public class VoteListener implements Listener {
 
                             player.teleport(endLoc);
 
-                            QueueWorker queueWorker = Talent.getInstance().getQueueWorker();
-
-                            queueWorker.addWinner(player);
-                            queueWorker.setCurrentSelectedPlayer(null);
-
-                            if (!queueWorker.hasNextPlayer()) {
+                            if (!plugin.getQueueWorker().hasNextPlayer()) {
                                 handleLastVote();
                             }
                         }
